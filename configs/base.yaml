@@ -1,0 +1,79 @@
+# Config base do experimento QRC shot-allocation.
+# Toda aleatoriedade deriva do master_seed via numpy.random.SeedSequence.spawn(),
+# nunca de np.random.seed global. Ver src/qrcshots/config.py:derive_seeds.
+
+seeds:
+  master: 20260908
+
+signal:
+  T: 6000
+  u_low: -1.0
+  u_high: 1.0
+
+task:
+  # narma5 é a tarefa que carrega o marco 1 (ver docs de diagnóstico/RESULTS.md):
+  # `primary` (u_{t-2}*u_{t-5}) foi testada exaustivamente (~80 combinações de
+  # reservatório) e não tem sinal linearmente decodificável destes 12 observáveis de
+  # peso-1 -- memória de 5 passos trava em NMSE~0.85 mesmo no melhor reservatório
+  # encontrado, travando o produto perto do nível trivial (NMSE>=0.94). Reportada
+  # como nulo honesto. narma5 com os MESMOS observáveis chega a NMSE~0.19-0.36,
+  # provando que o pipeline funciona e que o problema é específico da tarefa primária.
+  name: narma5            # primary | narma5 | product3
+  narma5:
+    u_low: 0.0
+    u_high: 0.2
+  product3:
+    lags: [1, 3, 7]
+
+split:
+  train_frac: 0.6
+  val_frac: 0.2
+  test_frac: 0.2
+
+reservoir:
+  # tau=2.0/J=8.0 vieram de uma busca em treino/val (nunca no teste) sobre ~80
+  # combinações de tau/J/h/semente -- o par (tau=1,J=1) original tinha piso de erro
+  # ~1.0 (sem sinal); ver comentário em task.name acima.
+  n_qubits: 4
+  window_L: 20
+  J: 8.0                 # J_ij ~ Uniform(-J, J)
+  h_low: 0.5
+  h_high: 1.5
+  tau: 2.0
+
+measurement:
+  groups: [X, Y, Z]
+
+collection:
+  train_shots_per_group: 64   # 64 * 3 = 192 shots/janela na coleta inicial
+
+ridge:
+  alpha_grid_log_min: -6
+  alpha_grid_log_max: 4    # ampliado de 2 para 4: com tau=1/J=1 o alpha ótimo raspava no teto
+  alpha_grid_n: 41
+
+calibration:
+  n_cal_shots: 64
+  n_repeats: 200          # R para estimativa empírica de s_g
+  holdout_frac: 0.3       # fração do treino reservada para calibração, disjunta do treino do ridge
+
+allocation:
+  n_min: 8
+  budgets: [96, 150, 300, 600, 1200, 2400]
+  oracle_grid_resolution: 41   # pontos por eixo no simplex para busca do oracle
+
+experiment:
+  n_seeds: 30
+
+baseline_kernel:
+  paper_url: "https://arxiv.org/abs/2602.14677"
+
+phase2:
+  max_iterations: 20
+  patience: 3
+
+paths:
+  cache_dir: cache
+  results_dir: results/raw
+  figures_dir: figures
+  docs_dir: docs

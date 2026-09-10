@@ -1,0 +1,106 @@
+{
+  "budget_per_window": 300,
+  "converged": true,
+  "n_iterations": 8,
+  "best_iteration": 4,
+  "total_shots_spent": 10346688,
+  "history": [
+    {
+      "iteration": 0,
+      "val_nmse": 0.7554938856077063,
+      "alpha": 316.22776601683796,
+      "allocation": {
+        "X": 100,
+        "Y": 100,
+        "Z": 100
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 1,
+      "val_nmse": 0.7311631568002482,
+      "alpha": 562.341325190349,
+      "allocation": {
+        "X": 138,
+        "Y": 58,
+        "Z": 104
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 2,
+      "val_nmse": 0.7142328955547711,
+      "alpha": 316.22776601683796,
+      "allocation": {
+        "X": 159,
+        "Y": 36,
+        "Z": 105
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 3,
+      "val_nmse": 0.6895519593461511,
+      "alpha": 177.82794100389228,
+      "allocation": {
+        "X": 183,
+        "Y": 24,
+        "Z": 93
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 4,
+      "val_nmse": 0.6831926820923847,
+      "alpha": 177.82794100389228,
+      "allocation": {
+        "X": 200,
+        "Y": 17,
+        "Z": 83
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 5,
+      "val_nmse": 0.6921895771934544,
+      "alpha": 56.23413251903491,
+      "allocation": {
+        "X": 214,
+        "Y": 17,
+        "Z": 69
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 6,
+      "val_nmse": 0.7003282135482962,
+      "alpha": 316.22776601683796,
+      "allocation": {
+        "X": 217,
+        "Y": 15,
+        "Z": 68
+      },
+      "shots_spent_this_iteration": 1112400
+    },
+    {
+      "iteration": 7,
+      "val_nmse": 0.6896814265601587,
+      "alpha": 316.22776601683796,
+      "allocation": {
+        "X": 231,
+        "Y": 13,
+        "Z": 56
+      },
+      "shots_spent_this_iteration": 1112400
+    }
+  ],
+  "best_allocation": {
+    "X": 200,
+    "Y": 17,
+    "Z": 83
+  },
+  "test_nmse_phase2_joint": 0.7253982561272005,
+  "test_nmse_phase1_variance_no_loop": 0.731006855788966,
+  "gain": 0.005608599661765412,
+  "elapsed_seconds": 6.675268650054932
+}
